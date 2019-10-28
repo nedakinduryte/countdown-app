@@ -12,7 +12,23 @@ class Countdown extends React.Component <{}, State> {
 
     setCountdownDate = (date: string) => {
         this.setState({date: date});
-        console.log(date);
+        this.calculateDifference();
+    }
+
+    getTodaysDate = () => {
+        let today = new Date();
+        let dd = parseInt(String(today.getDate()).padStart(2, '0'), 10);
+        let mm = parseInt(String(today.getMonth() + 1).padStart(2, '0'), 10);
+        let yyyy = today.getFullYear();
+
+        return [yyyy, mm, dd];
+    }
+
+    calculateDifference = () => {
+        let countdownDate = this.state.date.toString().split("-").map(Number);
+        let todaysDate = this.getTodaysDate();
+
+        
     }
 
     render() {
