@@ -32,6 +32,7 @@ class NewCountdown extends React.Component <Props, State> {
                         onChange={(e) => this.handleChange(e)} />
                 <button
                     onClick={this.handleClick}
+                    disabled={!this.state.value}
                 >Save</button>
             </div>
         )
