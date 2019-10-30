@@ -1,15 +1,18 @@
 import React from 'react';
 import NewCountdown from './NewCountdown';
+import TextField from './TextField';
 
 interface State {
     date: string,
-    difference: number | string
+    difference: number | string,
+    event: string
 }
 
 class Countdown extends React.Component <{}, State> {
     state = {
         date: "",
-        difference: ""
+        difference: "",
+        event: ""
     }
 
     setCountdownDate = (date: string) => {
@@ -30,12 +33,20 @@ class Countdown extends React.Component <{}, State> {
         this.setState({difference: Math.round(differenceInDays)});
     }
 
+    setCountdownEvent = (event: string) => {
+        this.setState({event: event});
+    }
+
     render() {
         return (
             <div>
-                <div>{this.state.difference ? this.state.difference : "No date selected"}</div>
+                <div>{this.state.difference ? this.state.difference+" days until" : "No date selected"}</div>
+                <div>{this.state.event}</div>
                 <NewCountdown
-                setCountdownDate={this.setCountdownDate}
+                    setCountdownDate={this.setCountdownDate}
+                />
+                <TextField
+                    setCountdownEvent={this.setCountdownEvent}
                 />
             </div>
         )
