@@ -2,40 +2,42 @@ import React from 'react';
 import NewCountdown from './NewCountdown';
 
 interface State {
-    date: string
+    date: string,
+    difference: number | string
 }
 
 class Countdown extends React.Component <{}, State> {
     state = {
-        date: ""
+        date: "",
+        difference: ""
     }
 
     setCountdownDate = (date: string) => {
-        this.setState({date: date});
-        this.calculateDifference();
-    }
-
-    getTodaysDate = () => {
-        let today = new Date();
-        let dd = parseInt(String(today.getDate()).padStart(2, '0'), 10);
-        let mm = parseInt(String(today.getMonth() + 1).padStart(2, '0'), 10);
-        let yyyy = today.getFullYear();
-
-        return [yyyy, mm, dd];
+        this.setState({
+            date: date
+        }, () => {
+            this.calculateDifference();
+        });
     }
 
     calculateDifference = () => {
-        let countdownDate = this.state.date.toString().split("-").map(Number);
-        let todaysDate = this.getTodaysDate();
+        const stringToArray = this.state.date.toString().split("-").map(Number); // date string  --> date array
+        const countdownDate = new Date(stringToArray[0], stringToArray[1] - 1, stringToArray[2]); // date array --> date object constructor
+        const todaysDate = new Date();
 
-        
+        const differenceInTime = countdownDate.getTime() - todaysDate.getTime();
+        const differenceInDays = differenceInTime / (1000 * 60 * 60 * 24); // milliseconds * seconds * minutes * hours
+        this.setState({difference: Math.round(differenceInDays)});
     }
 
     render() {
         return (
-            <NewCountdown
-            setCountdownDate={this.setCountdownDate}
-            />
+            <div>
+                <div>{this.state.difference ? this.state.difference : "No date selected"}</div>
+                <NewCountdown
+                setCountdownDate={this.setCountdownDate}
+                />
+            </div>
         )
     }
 }
