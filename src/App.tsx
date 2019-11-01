@@ -1,5 +1,5 @@
 import React from 'react';
-import Countdown from './Components/Countdown';
+import {Countdown} from './Components/Countdown';
 
 const App: React.FC = () => {
   return (
