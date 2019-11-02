@@ -34,7 +34,6 @@ export const NewCountdown: React.FC<ComponentProps> = props => {
     const [targetEvent, setTargetEvent] = React.useState('');
 
     const setTargetValues = (targetDate: string, targetEvent: string) => {
-        console.log(targetDate, targetEvent);
         props.getTargetValues(targetDate, targetEvent);
     }
 
@@ -45,13 +44,13 @@ export const NewCountdown: React.FC<ComponentProps> = props => {
             <h1>New countdown</h1>
             <MuiPickersUtilsProvider utils={MomentUtils}>
                 <DatePicker
-                    value={moment()}
+                    value={targetDate ? targetDate : moment()}
                     onChange={date => date ? setTargetDate(date.format("YYYY-MM-DD")) : setTargetDate("")}
                     minDate={moment()}    
                 />
             </MuiPickersUtilsProvider>
             <TextField
-                onChange={event => event.target.value ? setTargetEvent(event.target.value) : setTargetEvent("A very very very special event")}
+                onChange={event => setTargetEvent(event.target.value)}
                 id="standard-basic"
                 className={classes.textField}
                 label="Event name"

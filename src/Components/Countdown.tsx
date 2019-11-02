@@ -1,44 +1,42 @@
 import React from 'react';
 import {NewCountdown} from './Sidebar';
+import moment from 'moment';
 
 
 export const Countdown: React.FC<{}> = () => {
 
-    const [targetDate, setTargetDate] = React.useState('');
-    const [daysDifference, setDaysDifference] = React.useState('');
-    const [targetEvent, setTargetEvent] = React.useState('');
+    const [daysUntil, setDaysUntil] = React.useState(0);
 
     const getTargetValues = (date: string, eventName: string) => {
-        setTargetDate(date);
-        setTargetEvent(eventName);
+        localStorage.setItem("countdown", JSON.stringify({
+            "targetDate": date,
+            "eventName": eventName ? eventName : "A very very very special event"
+        }));
+
+        calculateDifference();
     };
 
-    // setCountdownDate = (targetDate: string) => {
-    //     this.setState({
-    //         targetDate: targetDate
-    //     }, () => {
-    //         this.calculateDifference();
-    //     });
-    // }
+    const calculateDifference = () => {
+        const date = JSON.parse(localStorage.getItem("countdown") as string).targetDate;
+        const targetDate = moment(date);
+        const todaysDate = moment();
+        
+        const countdownDate = targetDate.diff(todaysDate) / (1000 * 60 * 60 * 24);
+        setDaysUntil(Math.round(countdownDate));
+    }
 
-    // calculateDifference = () => {
-    //     const stringToArray = this.state.targetDate.toString().split("-").map(Number); // date string  --> date array
-    //     const countdownDate = new Date(stringToArray[0], stringToArray[1] - 1, stringToArray[2]); // date array --> date object constructor
-    //     const todaysDate = new Date();
-
-    //     const differenceInTime = countdownDate.getTime() - todaysDate.getTime();
-    //     const differenceInDays = differenceInTime / (1000 * 60 * 60 * 24); // milliseconds * seconds * minutes * hours
-    //     this.setState({difference: Math.round(differenceInDays)});
-    // }
-
-    // setCountdownEvent = (event: string) => {
-    //     this.setState({event: event});
-    // }
+    const days = () => {
+        if (JSON.parse(localStorage.getItem("countdown") as string).targetDate === 1) {
+            return "day"
+        } else {
+            return "days"
+        }
+    }
 
     return (
         <div>
-            {/* <div>{this.state.difference ? this.state.difference+" days until" : "No date selected"}</div>
-            <div>{this.state.event}</div> */}
+            <div>{daysUntil + " " + days() + " until"}</div>
+            <div>{JSON.parse(localStorage.getItem("countdown") as string).eventName}</div>
             <NewCountdown
                 getTargetValues={getTargetValues}
             />
