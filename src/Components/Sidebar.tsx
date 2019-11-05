@@ -26,9 +26,10 @@ const useStyles = makeStyles(theme => ({
 
 interface ComponentProps {
     getTargetValues(date: string, eventName: string): void;
+    closeDrawer(side: string, open: boolean): void;
 }
 
-export const NewCountdown: React.FC<ComponentProps> = props => {
+export const Sidebar: React.FC<ComponentProps> = props => {
     
     const [targetDate, setTargetDate] = React.useState('');
     const [targetEvent, setTargetEvent] = React.useState('');
@@ -59,7 +60,10 @@ export const NewCountdown: React.FC<ComponentProps> = props => {
             <Button
                 variant="contained"
                 className={classes.button}
-                onClick={() => setTargetValues(targetDate, targetEvent)}
+                onClick={() => {
+                    setTargetValues(targetDate, targetEvent)
+                    props.closeDrawer('left', false);
+                }}
             >
                 Save
             </Button>
