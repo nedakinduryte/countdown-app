@@ -7,6 +7,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import Background from '../../src/background.jpg';
 
 
 const useStyles = makeStyles((theme: Theme) => 
@@ -19,7 +20,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         fab: {
             margin: theme.spacing(1),
-            }
+        },
+        background: {
+            backgroundImage: `url(${Background})`,
+            backgroundSize: "cover",
+            height: "100vh",
+        }
     })
 );
 
@@ -91,7 +97,7 @@ export const Countdown: React.FC<{}> = () => {
       );
 
     return (
-        <div>
+        <div className={classes.background}>
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={toggleDrawer('left', true)}>
                 <AddIcon />
             </Fab>
