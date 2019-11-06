@@ -1,22 +1,27 @@
 import React from 'react';
 import { Sidebar } from './Sidebar';
 import moment from 'moment';
-import { makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 
-const useStyles = makeStyles({
-    list: {
-      width: 250,
-    },
-    fullList: {
-      width: 'auto',
-    },
-  });
+const useStyles = makeStyles((theme: Theme) => 
+    createStyles({
+        list: {
+            width: 250,
+        },
+        fullList: {
+            width: 'auto',
+        },
+        fab: {
+            margin: theme.spacing(1),
+            }
+    })
+);
 
 export const Countdown: React.FC<{}> = () => {
 
@@ -87,7 +92,9 @@ export const Countdown: React.FC<{}> = () => {
 
     return (
         <div>
-            <Button onClick={toggleDrawer('left', true)}>Open Left</Button>
+            <Fab color="primary" aria-label="add" className={classes.fab} onClick={toggleDrawer('left', true)}>
+                <AddIcon />
+            </Fab>
             <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
                 {sideList('left')}
             </Drawer>
