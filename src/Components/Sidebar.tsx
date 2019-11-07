@@ -12,17 +12,20 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexWrap: 'wrap',
         },
+        datePicker: {
+            width: "200px",
+        },
         textField: {
-            marginLeft: theme.spacing(1),
             marginRight: theme.spacing(1),
             width: 200,
+            marginLeft: 0,
         },
         button: {
             margin: theme.spacing(1),
         },
         input: {
             display: 'none',
-        }
+        },
     })
 )
 
@@ -49,7 +52,8 @@ export const Sidebar: React.FC<ComponentProps> = props => {
                 <DatePicker
                     value={targetDate ? targetDate : moment()}
                     onChange={date => date ? setTargetDate(date.format("YYYY-MM-DD")) : setTargetDate("")}
-                    minDate={moment()}    
+                    minDate={moment()}
+                    className={classes.datePicker}    
                 />
             </MuiPickersUtilsProvider>
             <TextField

@@ -25,7 +25,18 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundImage: `url(${Background})`,
             backgroundSize: "cover",
             height: "100vh",
-        }
+        },
+        counter: {
+            textAlign: "center",
+        },
+        event: {
+            textAlign: "center",
+            margin: "auto",
+            maxWidth: "60%",
+            fontFamily: "'Permanent Marker', cursive",
+            fontSize: "5em",
+            color: "#fff",
+        },
     })
 );
 
@@ -104,8 +115,8 @@ export const Countdown: React.FC<{}> = () => {
             <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
                 {sideList('left')}
             </Drawer>
-            <div>{daysUntil + " " + days() + " until"}</div>
-            <div>{JSON.parse(localStorage.getItem("countdown") as string).eventName}</div>
+                <div className={classes.counter}>{daysUntil + " " + days() + " until"}</div>
+                <div className={classes.event}>{JSON.parse(localStorage.getItem("countdown") as string).eventName}</div>
         </div>
     )
 }
