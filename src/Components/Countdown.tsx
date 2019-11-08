@@ -7,7 +7,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import Background from '../../src/background.jpg';
+import Background from '../../src/background-large.jpg';
+import Arrow from '../../src/arrow.png';
+import { classExpression } from '@babel/types';
 
 
 const useStyles = makeStyles((theme: Theme) => 
@@ -25,14 +27,45 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundImage: `url(${Background})`,
             backgroundSize: "cover",
             height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+        },
+        arrow: {
+            height: "48px",
+            width: "80px",
+            position: "absolute",
+            top: "30px",
+            left: "85px",
+            transform: "rotate(135deg)"
+        },
+        addNew: {
+            fontFamily: "'Nothing You Could Do', cursive",
+            fontSize: "1.5em",
+            position: "absolute",
+            top: "20px",
+            left: "170px",
+        },
+        container: {
+            margin: "auto",
         },
         counter: {
             textAlign: "center",
+            fontFamily: "'Overpass', sans-serif",
+            color: "#fff",
+            fontSize: "6em",
+            margin: "0 auto",
+        },
+        daysUntil: {
+            textAlign: "center",
+            fontFamily: "'Overpass', sans-serif",
+            color: "#fff",
+            fontSize: "2.5em",
+            margin: "0 auto",
         },
         event: {
             textAlign: "center",
-            margin: "auto",
-            maxWidth: "60%",
+            margin: "0 auto",
+            maxWidth: "60vw",
             fontFamily: "'Permanent Marker', cursive",
             fontSize: "5em",
             color: "#fff",
@@ -112,11 +145,16 @@ export const Countdown: React.FC<{}> = () => {
             <Fab color="primary" aria-label="add" className={classes.fab} onClick={toggleDrawer('left', true)}>
                 <AddIcon />
             </Fab>
+            <img src={Arrow} alt="Arrow" className={classes.arrow} />
+            <div className={classes.addNew}>Add a new countdown</div>
             <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
                 {sideList('left')}
             </Drawer>
-                <div className={classes.counter}>{daysUntil + " " + days() + " until"}</div>
+            <div className={classes.container}>
+                <div className={classes.counter}>{daysUntil}</div>
+                <div className={classes.daysUntil}>{days() + " until"}</div>
                 <div className={classes.event}>{JSON.parse(localStorage.getItem("countdown") as string).eventName}</div>
+            </div>
         </div>
     )
 }
