@@ -36,7 +36,7 @@ interface ComponentProps {
 
 export const Sidebar: React.FC<ComponentProps> = props => {
     
-    const [targetDate, setTargetDate] = React.useState('');
+    const [targetDate, setTargetDate] = React.useState(moment().format("YYYY-MM-DD"));
     const [targetEvent, setTargetEvent] = React.useState('');
 
     const setTargetValues = (targetDate: string, targetEvent: string) => {
@@ -62,6 +62,7 @@ export const Sidebar: React.FC<ComponentProps> = props => {
                 className={classes.textField}
                 label="Event name"
                 margin="normal"
+                inputProps={{maxlength: 32}}
             />
             <Button
                 variant="contained"
