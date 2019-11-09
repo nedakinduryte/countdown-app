@@ -7,7 +7,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import Background from '../../src/background-large.jpg';
+import LargeBackground from '../../src/background-large.jpg';
+import MediumBackground from '../../src/background-medium.jpg';
+import SmallBackground from '../../src/background-small.jpg';
+import XSmallBackground from '../../src/background-xsmall.jpg';
 import Arrow from '../../src/arrow.png';
 import { classExpression } from '@babel/types';
 
@@ -24,11 +27,20 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(1),
         },
         background: {
-            backgroundImage: `url(${Background})`,
+            backgroundImage: `url(${LargeBackground})`,
             backgroundSize: "cover",
             height: "100vh",
             display: "flex",
             flexDirection: "column",
+            [theme.breakpoints.down("md")]: {
+                backgroundImage: `url(${MediumBackground})`,
+            },
+            [theme.breakpoints.down("sm")]: {
+                backgroundImage: `url(${SmallBackground})`,
+            },
+            [theme.breakpoints.down("xs")]: {
+                backgroundImage: `url(${XSmallBackground})`,
+            }
         },
         arrow: {
             height: "48px",
@@ -36,7 +48,12 @@ const useStyles = makeStyles((theme: Theme) =>
             position: "absolute",
             top: "30px",
             left: "85px",
-            transform: "rotate(135deg)"
+            transform: "rotate(135deg)",
+            [theme.breakpoints.down("xs")]: {
+                height: "36px",
+                width: "68px",
+                left: "72px",
+            }
         },
         addNew: {
             fontFamily: "'Nothing You Could Do', cursive",
@@ -44,6 +61,10 @@ const useStyles = makeStyles((theme: Theme) =>
             position: "absolute",
             top: "20px",
             left: "170px",
+            [theme.breakpoints.down("xs")]: {
+                fontSize: "1em",
+                left: "140px",
+            }
         },
         container: {
             margin: "auto",
@@ -54,6 +75,9 @@ const useStyles = makeStyles((theme: Theme) =>
             color: "#fff",
             fontSize: "6em",
             margin: "0 auto",
+            [theme.breakpoints.down("xs")]: {
+                fontSize: "4em",
+            }
         },
         daysUntil: {
             textAlign: "center",
@@ -61,6 +85,9 @@ const useStyles = makeStyles((theme: Theme) =>
             color: "#fff",
             fontSize: "2.5em",
             margin: "0 auto",
+            [theme.breakpoints.down("xs")]: {
+                fontSize: "1.8em",
+            }
         },
         event: {
             textAlign: "center",
@@ -69,7 +96,11 @@ const useStyles = makeStyles((theme: Theme) =>
             fontFamily: "'Permanent Marker', cursive",
             fontSize: "5em",
             color: "#fff",
+            [theme.breakpoints.down("xs")]: {
+                fontSize: "3em",
+            }
         },
+        
     })
 );
 
