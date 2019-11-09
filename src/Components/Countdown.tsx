@@ -7,10 +7,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import LargeBackground from '../../src/background-large.jpg';
-import MediumBackground from '../../src/background-medium.jpg';
-import SmallBackground from '../../src/background-small.jpg';
-import XSmallBackground from '../../src/background-xsmall.jpg';
+import Background from '../../src/background.jpg';
 import Arrow from '../../src/arrow.png';
 import { classExpression } from '@babel/types';
 
@@ -27,20 +24,11 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(1),
         },
         background: {
-            backgroundImage: `url(${LargeBackground})`,
+            backgroundImage: `url(${Background})`,
             backgroundSize: "cover",
             height: "100vh",
             display: "flex",
             flexDirection: "column",
-            [theme.breakpoints.down("md")]: {
-                backgroundImage: `url(${MediumBackground})`,
-            },
-            [theme.breakpoints.down("sm")]: {
-                backgroundImage: `url(${SmallBackground})`,
-            },
-            [theme.breakpoints.down("xs")]: {
-                backgroundImage: `url(${XSmallBackground})`,
-            }
         },
         arrow: {
             height: "48px",
@@ -92,7 +80,7 @@ const useStyles = makeStyles((theme: Theme) =>
         event: {
             textAlign: "center",
             margin: "0 auto",
-            maxWidth: "60vw",
+            width: "60vw",
             fontFamily: "'Permanent Marker', cursive",
             fontSize: "5em",
             color: "#fff",
