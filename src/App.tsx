@@ -1,12 +1,12 @@
-import React from 'react';
-import {Countdown} from './Components/Countdown';
+import React from "react";
+import { Countdown } from "./Components/Countdown";
 
 const App: React.FC = () => {
-  return (
-  <div>
-    <Countdown />
-  </div>
-  );
-}
+    return (
+        <div>
+            <Countdown />
+        </div>
+    );
+};
 
 export default App;
