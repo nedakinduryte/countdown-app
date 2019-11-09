@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
-import moment from 'moment';
-import TextField from '@material-ui/core/TextField';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import React from "react";
+import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import MomentUtils from "@date-io/moment";
+import moment from "moment";
+import TextField from "@material-ui/core/TextField";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles((theme: Theme) => 
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            display: 'flex',
-            flexWrap: 'wrap',
+            display: "flex",
+            flexWrap: "wrap"
         },
         datePicker: {
-            width: "200px",
+            width: "200px"
         },
         textField: {
             marginRight: theme.spacing(1),
             width: 200,
-            marginLeft: 0,
+            marginLeft: 0
         },
         button: {
-            margin: theme.spacing(1),
+            margin: theme.spacing(1)
         },
         input: {
-            display: 'none',
-        },
+            display: "none"
+        }
     })
-)
+);
 
 interface ComponentProps {
     getTargetValues(date: string, eventName: string): void;
@@ -35,13 +35,14 @@ interface ComponentProps {
 }
 
 export const Sidebar: React.FC<ComponentProps> = props => {
-    
-    const [targetDate, setTargetDate] = React.useState(moment().format("YYYY-MM-DD"));
-    const [targetEvent, setTargetEvent] = React.useState('');
+    const [targetDate, setTargetDate] = React.useState(
+        moment().format("YYYY-MM-DD")
+    );
+    const [targetEvent, setTargetEvent] = React.useState("");
 
     const setTargetValues = (targetDate: string, targetEvent: string) => {
         props.getTargetValues(targetDate, targetEvent);
-    }
+    };
 
     const classes = useStyles();
 
@@ -51,9 +52,13 @@ export const Sidebar: React.FC<ComponentProps> = props => {
             <MuiPickersUtilsProvider utils={MomentUtils}>
                 <DatePicker
                     value={targetDate ? targetDate : moment()}
-                    onChange={date => date ? setTargetDate(date.format("YYYY-MM-DD")) : setTargetDate("")}
+                    onChange={date =>
+                        date
+                            ? setTargetDate(date.format("YYYY-MM-DD"))
+                            : setTargetDate("")
+                    }
                     minDate={moment()}
-                    className={classes.datePicker}    
+                    className={classes.datePicker}
                 />
             </MuiPickersUtilsProvider>
             <TextField
@@ -62,18 +67,18 @@ export const Sidebar: React.FC<ComponentProps> = props => {
                 className={classes.textField}
                 label="Event name"
                 margin="normal"
-                inputProps={{maxlength: 32}}
+                inputProps={{ maxlength: 32 }}
             />
             <Button
                 variant="contained"
                 className={classes.button}
                 onClick={() => {
-                    setTargetValues(targetDate, targetEvent)
-                    props.closeDrawer('left', false);
+                    setTargetValues(targetDate, targetEvent);
+                    props.closeDrawer("left", false);
                 }}
             >
                 Save
             </Button>
         </div>
-    )
-}
+    );
+};
