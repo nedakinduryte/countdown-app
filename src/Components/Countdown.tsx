@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: "auto"
         },
         fab: {
-            margin: theme.spacing(1)
+            margin: "20px"
         },
         background: {
             backgroundImage: `url(${Background})`,
@@ -37,8 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
             transform: "rotate(135deg)",
             [theme.breakpoints.down("xs")]: {
                 height: "36px",
-                width: "68px",
-                left: "72px"
+                width: "68px"
             }
         },
         addNew: {
@@ -49,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
             left: "170px",
             [theme.breakpoints.down("xs")]: {
                 fontSize: "1em",
-                left: "140px"
+                left: "155px"
             }
         },
         container: {
@@ -60,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontFamily: "'Overpass', sans-serif",
             color: "#fff",
             fontSize: "6em",
+            lineHeight: "1em",
             margin: "0 auto",
             [theme.breakpoints.down("xs")]: {
                 fontSize: "4em"
@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontFamily: "'Permanent Marker', cursive",
             fontSize: "5em",
             color: "#fff",
+            lineHeight: "1.1em",
             [theme.breakpoints.down("xs")]: {
                 fontSize: "3em"
             }
