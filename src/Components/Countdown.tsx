@@ -122,7 +122,7 @@ export const Countdown: React.FC<{}> = () => {
         const targetDate = moment(date).add(1, "days");
         const todaysDate = moment();
 
-        const countdownDate = targetDate.diff(todaysDate, "days");
+        const countdownDate = targetDate.diff(todaysDate, "days") < 0 ? 0 : targetDate.diff(todaysDate, "days");
         setDaysUntil(countdownDate);
     };
 
