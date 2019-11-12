@@ -5,10 +5,10 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import Background from "../../src/background.jpg";
 import Arrow from "../../src/arrow.png";
+import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -117,12 +117,18 @@ export const Countdown: React.FC<{}> = () => {
     };
 
     const calculateDifference = () => {
-        const date = JSON.parse(localStorage.getItem("countdown") as string)
-            .targetDate;
-        const targetDate = moment(date).add(1, "days");
-        const todaysDate = moment();
-
-        const countdownDate = targetDate.diff(todaysDate, "days") < 0 ? 0 : targetDate.diff(todaysDate, "days");
+        let date;
+        let countdownDate;
+        
+        if (localStorage.hasOwnProperty("countdown")) {
+            date = JSON.parse(localStorage.getItem("countdown") as string).targetDate;
+            const targetDate = moment(date).add(1, "days");
+            const todaysDate = moment();
+            countdownDate  = targetDate.diff(todaysDate, "days") < 0 ? 0 : targetDate.diff(todaysDate, "days");
+        } else {
+            countdownDate = 0;
+        }
+        
         setDaysUntil(countdownDate);
     };
 
@@ -131,13 +137,18 @@ export const Countdown: React.FC<{}> = () => {
     }, []);
 
     const days = () => {
-        const daysLeft = JSON.parse(localStorage.getItem("countdown") as string)
-            .targetDate;
-
-        if (daysUntil === 1 || daysLeft === 1) {
+        if (daysUntil === 1) {
             return "day";
         } else {
             return "days";
+        }
+    };
+
+    const renderEventName = () => { 
+        if (localStorage.hasOwnProperty("countdown")) {
+            return JSON.parse(localStorage.getItem("countdown") as string).eventName;
+        } else {
+            return "A very very very special event";
         }
     };
 
@@ -181,12 +192,7 @@ export const Countdown: React.FC<{}> = () => {
             <div className={classes.container}>
                 <div className={classes.counter}>{daysUntil}</div>
                 <div className={classes.daysUntil}>{days() + " until"}</div>
-                <div className={classes.event}>
-                    {
-                        JSON.parse(localStorage.getItem("countdown") as string)
-                            .eventName
-                    }
-                </div>
+                <div className={classes.event}>{ renderEventName() }</div>
             </div>
         </div>
     );
