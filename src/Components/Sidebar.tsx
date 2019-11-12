@@ -67,7 +67,7 @@ export const Sidebar: React.FC<ComponentProps> = props => {
                 className={classes.textField}
                 label="Event name"
                 margin="normal"
-                inputProps={{ maxlength: 32 }}
+                inputProps={{ maxLength: 32 }}
             />
             <Button
                 variant="contained"
