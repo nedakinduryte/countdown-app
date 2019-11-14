@@ -1,33 +1,10 @@
 import React from "react";
-import { Sidebar } from "./Sidebar";
 import moment from "moment";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import AddIcon from "@material-ui/icons/Add";
-import Background from "../../src/background.jpg";
 import Arrow from "../../src/arrow.png";
-import Fab from "@material-ui/core/Fab";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        list: {
-            width: 250
-        },
-        fullList: {
-            width: "auto"
-        },
-        fab: {
-            margin: "20px"
-        },
-        background: {
-            backgroundImage: `url(${Background})`,
-            backgroundSize: "cover",
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column"
-        },
         arrow: {
             height: "48px",
             width: "80px",
@@ -93,29 +70,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export const Countdown: React.FC<{}> = () => {
     const classes = useStyles();
 
-    const [state, setState] = React.useState({
-        top: false,
-        left: false,
-        bottom: false,
-        right: false
-    });
-
-    const [daysUntil, setDaysUntil] = React.useState(0);
-
-    const getTargetValues = (date: string, eventName: string) => {
-        localStorage.setItem(
-            "countdown",
-            JSON.stringify({
-                targetDate: date,
-                eventName: eventName
-                    ? eventName
-                    : "A very very very special event"
-            })
-        );
-
-        calculateDifference();
-    };
-
     const calculateDifference = () => {
         let date;
         let countdownDate;
@@ -129,7 +83,7 @@ export const Countdown: React.FC<{}> = () => {
             countdownDate = 0;
         }
         
-        setDaysUntil(countdownDate);
+        return countdownDate;
     };
 
     React.useEffect(() => {
@@ -137,7 +91,7 @@ export const Countdown: React.FC<{}> = () => {
     }, []);
 
     const days = () => {
-        if (daysUntil === 1) {
+        if (calculateDifference() === 1) {
             return "day";
         } else {
             return "days";
@@ -152,45 +106,12 @@ export const Countdown: React.FC<{}> = () => {
         }
     };
 
-    const toggleDrawer = (side: string, open: boolean) => (
-        event: React.MouseEvent<HTMLElement>
-    ) => {
-        setState({ ...state, [side]: open });
-    };
-
-    const closeDrawer = (side: string, open: boolean) =>
-        setState({ ...state, [side]: open });
-
-    const sideList = (side: string) => (
-        <div className={classes.list} role="presentation">
-            <List>
-                <ListItem>
-                    <Sidebar
-                        getTargetValues={getTargetValues}
-                        closeDrawer={closeDrawer}
-                    />
-                </ListItem>
-            </List>
-        </div>
-    );
-
     return (
-        <div className={classes.background}>
-            <Fab
-                color="primary"
-                aria-label="add"
-                className={classes.fab}
-                onClick={toggleDrawer("left", true)}
-            >
-                <AddIcon />
-            </Fab>
+        <div>
             <img src={Arrow} alt="Arrow" className={classes.arrow} />
             <div className={classes.addNew}>Add a new countdown</div>
-            <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
-                {sideList("left")}
-            </Drawer>
             <div className={classes.container}>
-                <div className={classes.counter}>{daysUntil}</div>
+                <div className={classes.counter}>{ calculateDifference() }</div>
                 <div className={classes.daysUntil}>{days() + " until"}</div>
                 <div className={classes.event}>{ renderEventName() }</div>
             </div>

@@ -30,8 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface ComponentProps {
-    getTargetValues(date: string, eventName: string): void;
-    closeDrawer(side: string, open: boolean): void;
+    closeDrawer(side: string, open: boolean): void
 }
 
 export const Sidebar: React.FC<ComponentProps> = props => {
@@ -41,7 +40,15 @@ export const Sidebar: React.FC<ComponentProps> = props => {
     const [targetEvent, setTargetEvent] = React.useState("");
 
     const setTargetValues = (targetDate: string, targetEvent: string) => {
-        props.getTargetValues(targetDate, targetEvent);
+        localStorage.setItem(
+            "countdown",
+            JSON.stringify({
+                targetDate: targetDate,
+                eventName: targetEvent
+                    ? targetEvent
+                    : "A very very very special event"
+            })
+        );
     };
 
     const classes = useStyles();
