@@ -1,33 +1,9 @@
 import React from "react";
 import moment from "moment";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Arrow from "../../src/arrow.png";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        arrow: {
-            height: "48px",
-            width: "80px",
-            position: "absolute",
-            top: "30px",
-            left: "85px",
-            transform: "rotate(135deg)",
-            [theme.breakpoints.down("xs")]: {
-                height: "36px",
-                width: "68px"
-            }
-        },
-        addNew: {
-            fontFamily: "'Nothing You Could Do', cursive",
-            fontSize: "1.5em",
-            position: "absolute",
-            top: "20px",
-            left: "170px",
-            [theme.breakpoints.down("xs")]: {
-                fontSize: "1em",
-                left: "155px"
-            }
-        },
         container: {
             margin: "auto"
         },
@@ -107,14 +83,10 @@ export const Countdown: React.FC<{}> = () => {
     };
 
     return (
-        <div>
-            <img src={Arrow} alt="Arrow" className={classes.arrow} />
-            <div className={classes.addNew}>Add a new countdown</div>
-            <div className={classes.container}>
-                <div className={classes.counter}>{ calculateDifference() }</div>
-                <div className={classes.daysUntil}>{days() + " until"}</div>
-                <div className={classes.event}>{ renderEventName() }</div>
-            </div>
+        <div className={classes.container}>
+            <div className={classes.counter}>{ calculateDifference() }</div>
+            <div className={classes.daysUntil}>{days() + " until"}</div>
+            <div className={classes.event}>{ renderEventName() }</div>
         </div>
     );
 };

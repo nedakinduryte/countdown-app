@@ -25,10 +25,33 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundSize: "cover",
             height: "100vh"
         },
+        arrow: {
+            height: "48px",
+            width: "80px",
+            position: "absolute",
+            top: "30px",
+            left: "85px",
+            transform: "rotate(135deg)",
+            [theme.breakpoints.down("xs")]: {
+                height: "36px",
+                width: "68px"
+            }
+        },
+        addNew: {
+            fontFamily: "'Nothing You Could Do', cursive",
+            fontSize: "1.5em",
+            position: "absolute",
+            top: "20px",
+            left: "170px",
+            [theme.breakpoints.down("xs")]: {
+                fontSize: "1em",
+                left: "155px"
+            }
+        }
     })
 );
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
 
     const classes = useStyles();
 
@@ -62,6 +85,8 @@ const App: React.FC = () => {
 
     return (
         <div className={classes.background}>
+            <img src='arrow.png' alt="Arrow" className={classes.arrow} />
+            <div className={classes.addNew}>Add a new countdown</div>
             <Fab
                 color="primary"
                 aria-label="add"
@@ -77,5 +102,3 @@ const App: React.FC = () => {
         </div>
     );
 };
-
-export default App;
