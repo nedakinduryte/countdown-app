@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface ComponentProps {
-    closeDrawer(side: string, open: boolean): void
+    closeDrawer(side: string, open: boolean): void;
+    setValues(targetDate: string, targetEvent: string): void;
 }
 
 export const Sidebar: React.FC<ComponentProps> = props => {
@@ -38,18 +39,6 @@ export const Sidebar: React.FC<ComponentProps> = props => {
         moment().format("YYYY-MM-DD")
     );
     const [targetEvent, setTargetEvent] = React.useState("");
-
-    const setTargetValues = (targetDate: string, targetEvent: string) => {
-        localStorage.setItem(
-            "countdown",
-            JSON.stringify({
-                targetDate: targetDate,
-                eventName: targetEvent
-                    ? targetEvent
-                    : "A very very very special event"
-            })
-        );
-    };
 
     const classes = useStyles();
 
@@ -62,7 +51,7 @@ export const Sidebar: React.FC<ComponentProps> = props => {
                     onChange={date =>
                         date
                             ? setTargetDate(date.format("YYYY-MM-DD"))
-                            : setTargetDate("")
+                            : setTargetDate(moment().format("YYYY-MM-DD"))
                     }
                     minDate={moment()}
                     className={classes.datePicker}
@@ -80,7 +69,7 @@ export const Sidebar: React.FC<ComponentProps> = props => {
                 variant="contained"
                 className={classes.button}
                 onClick={() => {
-                    setTargetValues(targetDate, targetEvent);
+                    props.setValues(targetDate, targetEvent);
                     props.closeDrawer("left", false);
                 }}
             >

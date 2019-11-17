@@ -5,7 +5,12 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            margin: "auto"
+            fontSize: "16px",
+            justifySelf: "center",
+            alignSelf: "center",
+            [theme.breakpoints.down("xs")]: {
+                fontSize: "12px"
+            }
         },
         counter: {
             textAlign: "center",
@@ -13,20 +18,14 @@ const useStyles = makeStyles((theme: Theme) =>
             color: "#fff",
             fontSize: "6em",
             lineHeight: "1em",
-            margin: "0 auto",
-            [theme.breakpoints.down("xs")]: {
-                fontSize: "4em"
-            }
+            margin: "0 auto"
         },
         daysUntil: {
             textAlign: "center",
             fontFamily: "'Overpass', sans-serif",
             color: "#fff",
             fontSize: "2.5em",
-            margin: "0 auto",
-            [theme.breakpoints.down("xs")]: {
-                fontSize: "1.8em"
-            }
+            margin: "0 auto"
         },
         event: {
             textAlign: "center",
@@ -35,58 +34,48 @@ const useStyles = makeStyles((theme: Theme) =>
             fontFamily: "'Permanent Marker', cursive",
             fontSize: "5em",
             color: "#fff",
-            lineHeight: "1.1em",
-            [theme.breakpoints.down("xs")]: {
-                fontSize: "3em"
-            }
+            lineHeight: "1.1em"
         }
     })
 );
 
-export const Countdown: React.FC<{}> = () => {
+interface ComponentProps {
+    data: {
+        date: string;
+        event: string;
+    };
+}
+
+export const Countdown: React.FC<ComponentProps> = props => {
     const classes = useStyles();
 
+    const [values, setValues] = React.useState({
+        daysUntil: 0,
+        event: "A very very very special event",
+        days: "days"
+    });
+
     const calculateDifference = () => {
-        let date;
-        let countdownDate;
-        
-        if (localStorage.hasOwnProperty("countdown")) {
-            date = JSON.parse(localStorage.getItem("countdown") as string).targetDate;
-            const targetDate = moment(date).add(1, "days");
-            const todaysDate = moment();
-            countdownDate  = targetDate.diff(todaysDate, "days") < 0 ? 0 : targetDate.diff(todaysDate, "days");
-        } else {
-            countdownDate = 0;
-        }
-        
-        return countdownDate;
+        const daysLeft = moment(props.data.date)
+            .add(1, "days")
+            .diff(moment(), "days");
+
+        setValues({
+            daysUntil: daysLeft < 0 ? 0 : daysLeft,
+            event: props.data.event,
+            days: daysLeft === 1 ? "day" : "days"
+        });
     };
 
     React.useEffect(() => {
         calculateDifference();
-    }, []);
-
-    const days = () => {
-        if (calculateDifference() === 1) {
-            return "day";
-        } else {
-            return "days";
-        }
-    };
-
-    const renderEventName = () => { 
-        if (localStorage.hasOwnProperty("countdown")) {
-            return JSON.parse(localStorage.getItem("countdown") as string).eventName;
-        } else {
-            return "A very very very special event";
-        }
-    };
+    }, [props.data]);
 
     return (
         <div className={classes.container}>
-            <div className={classes.counter}>{ calculateDifference() }</div>
-            <div className={classes.daysUntil}>{days() + " until"}</div>
-            <div className={classes.event}>{ renderEventName() }</div>
+            <div className={classes.counter}>{values.daysUntil}</div>
+            <div className={classes.daysUntil}>{`${values.days} until`}</div>
+            <div className={classes.event}>{values.event}</div>
         </div>
     );
 };

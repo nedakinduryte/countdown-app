@@ -8,6 +8,8 @@ import ListItem from "@material-ui/core/ListItem";
 import AddIcon from "@material-ui/icons/Add";
 import Background from "../src/background.jpg";
 import Fab from "@material-ui/core/Fab";
+import MomentUtils from "@date-io/moment";
+import moment from "moment";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -18,49 +20,90 @@ const useStyles = makeStyles((theme: Theme) =>
             width: "auto"
         },
         fab: {
-            margin: "20px"
+            margin: "1.5em"
         },
         background: {
             backgroundImage: `url(${Background})`,
             backgroundSize: "cover",
-            height: "100vh"
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "16px",
+            [theme.breakpoints.down("xs")]: {
+                fontSize: "13px"
+            }
+        },
+        topContainer: {
+            position: "absolute",
+            width: "100%",
+            left: 0
         },
         arrow: {
-            height: "48px",
-            width: "80px",
+            height: "3em",
+            width: "5em",
             position: "absolute",
-            top: "30px",
-            left: "85px",
+            top: "1.9em",
+            left: "5.3em",
             transform: "rotate(135deg)",
             [theme.breakpoints.down("xs")]: {
-                height: "36px",
-                width: "68px"
+                left: "6.5em"
             }
         },
         addNew: {
             fontFamily: "'Nothing You Could Do', cursive",
             fontSize: "1.5em",
             position: "absolute",
-            top: "20px",
-            left: "170px",
+            top: "0.9em",
+            left: "7.1em",
+            padding: "0 1em 0 0",
             [theme.breakpoints.down("xs")]: {
-                fontSize: "1em",
-                left: "155px"
+                left: "7.9em"
             }
         }
     })
 );
 
 export const App: React.FC = () => {
-
     const classes = useStyles();
 
     const [state, setState] = React.useState({
-        top: false,
-        left: false,
-        bottom: false,
-        right: false
+        //top: false,
+        left: false
+        //bottom: false,
+        //right: false
     });
+
+    const [data, setData] = React.useState({
+        date: moment().format("YYYY-MM-DD"),
+        event: "A very very very special event"
+    });
+
+    React.useEffect(() => {
+        checkLocalStorage();
+    }, []);
+
+    const setValues = (targetDate: string, targetEvent: string) => {
+        localStorage.setItem(
+            "countdown",
+            JSON.stringify({
+                targetDate: targetDate,
+                eventName: targetEvent
+                    ? targetEvent
+                    : "A very very very special event"
+            })
+        );
+
+        setData({ date: targetDate, event: targetEvent });
+    };
+
+    const checkLocalStorage = () => {
+        if (localStorage.hasOwnProperty("countdown")) {
+            const countdown = JSON.parse(localStorage.getItem(
+                "countdown"
+            ) as string);
+            setData({ date: countdown.targetDate, event: countdown.eventName });
+        }
+    };
 
     const toggleDrawer = (side: string, open: boolean) => (
         event: React.MouseEvent<HTMLElement>
@@ -75,9 +118,7 @@ export const App: React.FC = () => {
         <div className={classes.list} role="presentation">
             <List>
                 <ListItem>
-                    <Sidebar
-                        closeDrawer={closeDrawer}
-                    />
+                    <Sidebar closeDrawer={closeDrawer} setValues={setValues} />
                 </ListItem>
             </List>
         </div>
@@ -85,20 +126,22 @@ export const App: React.FC = () => {
 
     return (
         <div className={classes.background}>
-            <img src='arrow.png' alt="Arrow" className={classes.arrow} />
-            <div className={classes.addNew}>Add a new countdown</div>
-            <Fab
-                color="primary"
-                aria-label="add"
-                className={classes.fab}
-                onClick={toggleDrawer("left", true)}
-            >
-                <AddIcon />
-            </Fab>
+            <div className={classes.topContainer}>
+                <img src="arrow.png" alt="Arrow" className={classes.arrow} />
+                <div className={classes.addNew}>Add a new countdown</div>
+                <Fab
+                    color="primary"
+                    aria-label="add"
+                    className={classes.fab}
+                    onClick={toggleDrawer("left", true)}
+                >
+                    <AddIcon />
+                </Fab>
+            </div>
             <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
                 {sideList("left")}
             </Drawer>
-            <Countdown />
+            <Countdown data={data} />
         </div>
     );
 };
