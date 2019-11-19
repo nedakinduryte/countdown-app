@@ -55,6 +55,10 @@ export const Countdown: React.FC<ComponentProps> = props => {
         days: "days"
     });
 
+    /*
+     * Calculates the number of days between two days -
+     * today's date and the countdown date.
+     */
     const calculateDifference = () => {
         const daysLeft = moment(props.data.date)
             .add(1, "days")

@@ -82,6 +82,10 @@ export const App: React.FC = () => {
         checkLocalStorage();
     }, []);
 
+    /*
+     * Function is called by Sidebar component and it sets values
+     * to local storage and component state.
+     */
     const setValues = (targetDate: string, targetEvent: string) => {
         localStorage.setItem(
             "countdown",
@@ -96,6 +100,11 @@ export const App: React.FC = () => {
         setData({ date: targetDate, event: targetEvent });
     };
 
+    /*
+     * On page refresh checks whether there are any values in
+     * local storage and sets component's state with them
+     * (or uses default values if local storage is empty).
+     */
     const checkLocalStorage = () => {
         if (localStorage.hasOwnProperty("countdown")) {
             const countdown = JSON.parse(localStorage.getItem(
