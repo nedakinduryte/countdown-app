@@ -66,7 +66,10 @@ export const Countdown: React.FC<ComponentProps> = props => {
 
         setValues({
             daysUntil: daysLeft < 0 ? 0 : daysLeft,
-            event: props.data.event,
+            event:
+                props.data.event === ""
+                    ? "A very very very special event"
+                    : props.data.event,
             days: daysLeft === 1 ? "day" : "days"
         });
     };
