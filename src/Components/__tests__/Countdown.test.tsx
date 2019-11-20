@@ -73,38 +73,6 @@ describe("Testing Countdown component", () => {
         wrapper.unmount();
     });
 
-    it("Should return zero for yesterday's date", () => {
-        wrapper = mount(
-            <Countdown
-                data={{
-                    date: moment()
-                        .subtract(1, "days")
-                        .format("YYYY-MM-DD"),
-                    event: "Not available"
-                }}
-            />
-        );
-        expect(
-            wrapper
-                .find("div")
-                .at(1)
-                .text()
-        ).toEqual("0");
-        expect(
-            wrapper
-                .find("div")
-                .at(2)
-                .text()
-        ).toEqual("days until");
-        expect(
-            wrapper
-                .find("div")
-                .at(3)
-                .text()
-        ).toEqual("Not available");
-        wrapper.unmount();
-    });
-
     it("Should return 365 days", () => {
         wrapper = mount(
             <Countdown
