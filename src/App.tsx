@@ -75,7 +75,7 @@ export const App: React.FC = () => {
 
     const [data, setData] = React.useState({
         date: moment().format("YYYY-MM-DD"),
-        event: "A very very very special event"
+        event: "A very special event"
     });
 
     React.useEffect(() => {
@@ -91,9 +91,7 @@ export const App: React.FC = () => {
             "countdown",
             JSON.stringify({
                 targetDate: targetDate,
-                eventName: targetEvent
-                    ? targetEvent
-                    : "A very very very special event"
+                eventName: targetEvent ? targetEvent : "A very special event"
             })
         );
 
@@ -107,9 +105,9 @@ export const App: React.FC = () => {
      */
     const checkLocalStorage = () => {
         if (localStorage.hasOwnProperty("countdown")) {
-            const countdown = JSON.parse(localStorage.getItem(
-                "countdown"
-            ) as string);
+            const countdown = JSON.parse(
+                localStorage.getItem("countdown") as string
+            );
             setData({ date: countdown.targetDate, event: countdown.eventName });
         }
     };
