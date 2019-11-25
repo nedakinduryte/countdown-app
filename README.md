@@ -9,4 +9,4 @@ The app was built with a purpose to practice Typescript and unit testing skills,
 -   [React](https://reactjs.org/)
 -   [Typescript](https://www.typescriptlang.org/) - Typescript documentation
 -   [Material-UI](https://material-ui.com/) - UI framework
--   [Enzyme](https://airbnb.io/enzyme/) - Testing library
+-   [Jest](https://jestjs.io/) - Testing library
