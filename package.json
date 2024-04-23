@@ -14,7 +14,7 @@
         "@types/node": "12.11.7",
         "@types/react": "16.9.11",
         "@types/react-dom": "16.9.3",
-        "gh-pages": "^2.1.1",
+        "gh-pages": "^5.0.0",
         "material-ui-icons": "^1.0.0-beta.36",
         "moment": "^2.24.0",
         "react": "^16.11.0",
